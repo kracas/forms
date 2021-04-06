@@ -1,4 +1,4 @@
-[
+{"services":[
     {
         "serviceId": "autosale",
         "name": "Automobilio pirkimo-pardavimo sutartis",
@@ -966,4 +966,4 @@
             }
         }
     }
-]
+]}
