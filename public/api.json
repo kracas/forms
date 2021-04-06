@@ -1,0 +1,576 @@
+[
+  {
+    "serviceId": "employment",
+    "name": "Darbo sutartis",
+    "description": "Lorem ipsum dolor sit amet, stet constituam mei at, at mea virtute omnesque. Ex percipit detraxit mediocrem est. Latine officiis et sed. At eligendi petentium eum, et dico appetere sit. Eros cetero vituperata ad eam. Cum melius minimum te, vis no adhuc causae intellegam. Utinam gloriatur et vix. Eum posse delenit id, et duo oratio tantas, dicam possim impetus ex eos. Doctus suscipiantur ei has, est omnis quodsi an, sea semper scripta menandri ad.",
+    "price": 0,
+    "JSONSchema": {
+      "type": "object",
+      "properties": {
+        "contractDate": {
+          "title": "Sutarties data",
+          "type": "string",
+          "format": "date"
+        },
+        "contractNo": {
+          "title": "Sutarties numeris",
+          "type": "string"
+        },
+        "place": {
+          "title": "Sutarties sudarymo vieta",
+          "type": "string"
+        },
+        "sellerPartyFlow": {
+          "type": "string",
+          "default": ""
+        },
+        "buyerPartyFlow": {
+          "type": "string",
+          "default": ""
+        },
+        "sellerEmailFlow": {
+          "type": "string",
+          "default": ""
+        },
+        "buyerEmailFlow": {
+          "type": "string",
+          "default": ""
+        },
+        "seller": {
+          "title": "Pardavėjo rekvizitai",
+          "$ref": "#/definitions/party"
+        },
+        "buyer": {
+          "title": "Pirkėjo rekvizitai",
+          "$ref": "#/definitions/party"
+        },
+        "make": {
+          "title": "Markė",
+          "type": "string"
+        },
+        "model": {
+          "title": "Modelis",
+          "type": "string"
+        },
+        "plateTitle": {
+          "type": "null",
+          "title": "Valstybinis numeris"
+        },
+        "plateAbsent": {
+          "title": "Numerio nėra",
+          "type": "boolean",
+          "default": false,
+          "enumNames": [
+            "absent",
+            "present"
+          ]
+        },
+        "vin": {
+          "title": "Indentifikavimo numeris (VIN)",
+          "type": "string"
+        },
+        "milage": {
+          "title": "Kilometražas (km)",
+          "type": "number"
+        },
+        "certTitle": {
+          "type": "null",
+          "title": "Registracijos liudijimo serija ir numeris"
+        },
+        "certAbsent": {
+          "title": "Liudijimo nėra",
+          "type": "boolean",
+          "default": false
+        },
+        "inspection": {
+          "type": "string",
+          "title": "Techninė apžiūra",
+          "enum": [
+            "VALID",
+            "INVALID"
+          ],
+          "enumNames": [
+            "Galioja",
+            "Negalioja"
+          ]
+        },
+        "acciOwn": {
+          "title": "Ar per laikotarpį, kuomet pardavėjas buvo transporto priemonės savininkas, buvo eismo ar kitų įvykių, kurių metu buvo apgadinta ši transporto priemonė?",
+          "$ref": "#/definitions/defs"
+        },
+        "acciNOwn": {
+          "title": "Ar yra žinomi kiti įvykiai, kurių metu buvo apgadinta ši transporto priemonė, per laikotarpį iki pardavėjui tampant šios transporto priemonės savininku?",
+          "$ref": "#/definitions/defs"
+        },
+        "defBreaks": {
+          "title": "Ar ši transporto priemonė turi stabdžių sistemos trūkumų?",
+          "$ref": "#/definitions/defs"
+        },
+        "defWheel": {
+          "title": "Ar ši transporto priemonė turi vairo mechanizmo ir/ar pakabos elementų trūkumų?",
+          "$ref": "#/definitions/defs"
+        },
+        "defMuff": {
+          "title": "Ar ši transporto priemonė turi dujų išmetimo sistemos trūkumų?",
+          "$ref": "#/definitions/defs"
+        },
+        "defSafe": {
+          "title": "Ar ši transporto priemonė turi vairuotojų ir/ar keleivių saugos sistemų trūkumų?",
+          "$ref": "#/definitions/defs"
+        },
+        "defLight": {
+          "title": "Ar ši transporto priemonė turi apšvietimo ir/ar šviesos signalizavimo įtaisų trūkumų?",
+          "$ref": "#/definitions/defs"
+        },
+        "sum": {
+          "title": "Kaina (EUR)",
+          "type": "number"
+        }
+      },
+      "definitions": {
+        "party": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "ind",
+                "com"
+              ],
+              "enumNames": [
+                "Fizinis asmuo",
+                "Įmonė"
+              ]
+            }
+          },
+          "dependencies": {
+            "type": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "com"
+                      ]
+                    },
+                    "name": {
+                      "title": "Pavadinimas",
+                      "type": "string"
+                    },
+                    "code": {
+                      "title": "Įmonės kodas",
+                      "type": "string"
+                    },
+                    "address": {
+                      "title": "Adresas",
+                      "type": "string"
+                    },
+                    "email": {
+                      "title": "El. pašto adresas",
+                      "type": "string"
+                    },
+                    "phone": {
+                      "title": "Telefonas",
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "ind"
+                      ]
+                    },
+                    "name": {
+                      "title": "Vardas ir pavardė",
+                      "type": "string"
+                    },
+                    "code": {
+                      "title": "Gimimo data arba asmens kodas",
+                      "type": "string"
+                    },
+                    "address": {
+                      "title": "Adresas",
+                      "type": "string"
+                    },
+                    "email": {
+                      "title": "El. pašto adresas",
+                      "type": "string"
+                    },
+                    "phone": {
+                      "title": "Telefonas",
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "defs": {
+          "type": "string",
+          "enum": [
+            "YES",
+            "NO"
+          ],
+          "enumNames": [
+            "Taip",
+            "Ne"
+          ]
+        }
+      },
+      "dependencies": {
+        "plateAbsent": {
+          "oneOf": [
+            {
+              "properties": {
+                "plateAbsent": {
+                  "enum": [
+                    false
+                  ]
+                },
+                "plate": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "properties": {
+                "plateAbsent": {
+                  "enum": [
+                    true
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "certAbsent": {
+          "oneOf": [
+            {
+              "properties": {
+                "certAbsent": {
+                  "enum": [
+                    false
+                  ]
+                },
+                "cert": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "properties": {
+                "certAbsent": {
+                  "enum": [
+                    true
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "acciOwn": {
+          "oneOf": [
+            {
+              "properties": {
+                "acciOwn": {
+                  "enum": [
+                    "YES"
+                  ]
+                },
+                "acciOwnInfo": {
+                  "type": "string",
+                  "title": "Informacija apie šiuos įvykius"
+                }
+              }
+            },
+            {
+              "properties": {
+                "acciOwn": {
+                  "enum": [
+                    "NO"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "acciNOwn": {
+          "oneOf": [
+            {
+              "properties": {
+                "acciNOwn": {
+                  "enum": [
+                    "YES"
+                  ]
+                },
+                "acciNOwnInfo": {
+                  "type": "string",
+                  "title": "Informacija apie šiuos įvykius"
+                }
+              }
+            },
+            {
+              "properties": {
+                "acciNOwn": {
+                  "enum": [
+                    "NO"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "defBreaks": {
+          "oneOf": [
+            {
+              "properties": {
+                "defBreaks": {
+                  "enum": [
+                    "YES"
+                  ]
+                },
+                "defBreaksInfo": {
+                  "type": "string",
+                  "title": "Informacija apie šį trūkumą"
+                }
+              }
+            },
+            {
+              "properties": {
+                "defBreaks": {
+                  "enum": [
+                    "NO"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "defWheel": {
+          "oneOf": [
+            {
+              "properties": {
+                "defWheel": {
+                  "enum": [
+                    "YES"
+                  ]
+                },
+                "defWheelInfo": {
+                  "type": "string",
+                  "title": "Informacija apie šį trūkumą"
+                }
+              }
+            },
+            {
+              "properties": {
+                "defWheel": {
+                  "enum": [
+                    "NO"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "defMuff": {
+          "oneOf": [
+            {
+              "properties": {
+                "defMuff": {
+                  "enum": [
+                    "YES"
+                  ]
+                },
+                "defMuffInfo": {
+                  "type": "string",
+                  "title": "Informacija apie šį trūkumą"
+                }
+              }
+            },
+            {
+              "properties": {
+                "defMuff": {
+                  "enum": [
+                    "NO"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "defSafe": {
+          "oneOf": [
+            {
+              "properties": {
+                "defSafe": {
+                  "enum": [
+                    "YES"
+                  ]
+                },
+                "defSafeInfo": {
+                  "type": "string",
+                  "title": "Informacija apie šį trūkumą"
+                }
+              }
+            },
+            {
+              "properties": {
+                "defSafe": {
+                  "enum": [
+                    "NO"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "defLight": {
+          "oneOf": [
+            {
+              "properties": {
+                "defLight": {
+                  "enum": [
+                    "YES"
+                  ]
+                },
+                "defLightInfo": {
+                  "type": "string",
+                  "title": "Informacija apie šį trūkumą"
+                }
+              }
+            },
+            {
+              "properties": {
+                "defLight": {
+                  "enum": [
+                    "NO"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "UISchema": {
+      "ui:order": [
+        "contractDate",
+        "contractNo",
+        "place",
+        "seller",
+        "buyer",
+        "make",
+        "model",
+        "plateTitle",
+        "plate",
+        "plateAbsent",
+        "vin",
+        "milage",
+        "certTitle",
+        "cert",
+        "certAbsent",
+        "inspection",
+        "acciOwn",
+        "acciOwnInfo",
+        "acciNOwn",
+        "acciNOwnInfo",
+        "defBreaks",
+        "defBreaksInfo",
+        "defWheel",
+        "defWheelInfo",
+        "defMuff",
+        "defMuffInfo",
+        "defSafe",
+        "defSafeInfo",
+        "defLight",
+        "defLightInfo",
+        "*"
+      ],
+      "sellerPartyFlow": {
+        "ui:widget": "hidden"
+      },
+      "buyerPartyFlow": {
+        "ui:widget": "hidden"
+      },
+      "sellerEmailFlow": {
+        "ui:widget": "hidden"
+      },
+      "buyerEmailFlow": {
+        "ui:widget": "hidden"
+      },
+      "seller": {
+        "ui:options": {
+          "removable": false,
+          "orderable": false,
+          "addable": false
+        },
+        "type": {
+          "ui:widget": "radio",
+          "ui:inline": true,
+          "ui:label": false
+        }
+      },
+      "buyer": {
+        "ui:options": {
+          "removable": false,
+          "orderable": false,
+          "addable": false
+        },
+        "type": {
+          "ui:widget": "radio",
+          "ui:inline": true,
+          "ui:label": false
+        }
+      },
+      "plate": {
+        "ui:label": false
+      },
+      "cert": {
+        "ui:label": false
+      },
+      "inspection": {
+        "ui:widget": "radio",
+        "ui:inline": true
+      },
+      "acciOwn": {
+        "ui:widget": "radio",
+        "ui:inline": true
+      },
+      "acciOwnInfo": {
+        "ui:widget": "textarea",
+        "ui:rows": 3
+      },
+      "acciNOwn": {
+        "ui:widget": "radio",
+        "ui:inline": true
+      },
+      "acciNOwnInfo": {
+        "ui:widget": "textarea",
+        "ui:rows": 3
+      },
+      "defBreaks": {
+        "ui:widget": "radio",
+        "ui:inline": true
+      },
+      "defWheel": {
+        "ui:widget": "radio",
+        "ui:inline": true
+      },
+      "defMuff": {
+        "ui:widget": "radio",
+        "ui:inline": true
+      },
+      "defSafe": {
+        "ui:widget": "radio",
+        "ui:inline": true
+      },
+      "defLight": {
+        "ui:widget": "radio",
+        "ui:inline": true
+      }
+    }
+  }
+]

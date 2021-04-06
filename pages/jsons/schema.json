@@ -1,0 +1,111 @@
+{
+    "type": "object",
+    "properties": {
+        "singleLineText": {
+            "title": "Single Line Text",
+            "type": "string",
+            "default": "Single line text"
+        },
+        "paragraphText": {
+            "title": "Paragraph",
+            "type": "string"
+        },
+        "date2": {
+            "type": "string",
+            "format": "date"
+        },
+        "radio": {
+            "type": "string",
+            "enum": [
+                "Button1",
+                "Button2",
+                "Button3"
+            ],
+            "enumNames": [
+                "one",
+                "two",
+                "three"
+            ]
+        },
+        "dropdown": {
+            "type": "string",
+            "title": "Radio",
+            "enum": [
+                "Option1",
+                "Option2",
+                "Option3"
+            ],
+            "enumNames": [
+                "one",
+                "two",
+                "three"
+            ]
+        },
+        "number": {
+            "title": "Number",
+            "type": "number"
+        },
+        "numberSlider": {
+            "title": "Number slider",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5
+        },
+        "array": {
+            "title": "array",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "property1": {
+                        "title": "prop1",
+                        "type": "string"
+                    },
+                    "property2": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "choice": {
+            "title": "choose option",
+            "type": "string",
+            "enum": [
+                "Option1",
+                "Option2"
+            ]
+        }
+    },
+    "dependencies": {
+        "choice": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "choice": {
+                            "enum": [
+                                "Option1"
+                            ]
+                        },
+                        "option1": {
+                            "title":"option1",
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "choice": {
+                            "enum": [
+                                "Option2"
+                            ]
+                        },
+                        "option1": {
+                            "title":"option2",
+                            "type": "string"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

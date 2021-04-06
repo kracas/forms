@@ -1,0 +1,387 @@
+{
+    "type": "object",
+    "properties": {
+        "contractDate": {
+            "title": "Sutarties data",
+            "type": "string",
+            "format": "date"
+        },
+        "place": {
+            "title": "Sutarties sudarymo vieta",
+            "type": "string"
+        },
+        "flows_sellerParty": {
+            "type": "string",
+            "default": ""
+        },
+        "flows_buyerParty": {
+            "type": "string",
+            "default": ""
+        },
+        "flows_sellerEmail": {
+            "type": "string",
+            "default": ""
+        },
+        "flows_buyerEmail": {
+            "type": "string",
+            "default": ""
+        },
+        "seller": {
+            "title": "Pardavėjo rekvizitai",
+            "$ref": "#/definitions/party"
+        },
+        "buyer": {
+            "title": "Pirkėjo rekvizitai",
+            "$ref": "#/definitions/party"
+        },
+        "make": {
+            "title": "Markė",
+            "type": "string"
+        },
+        "model": {
+            "title": "Modelis",
+            "type": "string"
+        },
+        "plate": {
+            "type": "string",
+            "title": "Valstybinis numeris"
+        },
+        "vin": {
+            "title": "Indentifikavimo numeris (VIN)",
+            "type": "string"
+        },
+        "milage": {
+            "title": "Kilometražas (km)",
+            "type": "number"
+        },
+        "cert": {
+            "type": "string",
+            "title": "Registracijos liudijimo serija ir numeris"
+        },
+        "inspection": {
+            "type": "string",
+            "title": "Techninė apžiūra",
+            "enum": [
+                "VALID",
+                "INVALID"
+            ],
+            "enumNames": [
+                "Galioja",
+                "Negalioja"
+            ]
+        },
+        "acciOwn": {
+            "title": "Ar per laikotarpį, kuomet pardavėjas buvo transporto priemonės savininkas, buvo eismo ar kitų įvykių, kurių metu buvo apgadinta ši transporto priemonė?",
+            "$ref": "#/definitions/defs"
+        },
+        "acciNOwn": {
+            "title": "Ar yra žinomi kiti įvykiai, kurių metu buvo apgadinta ši transporto priemonė, per laikotarpį iki pardavėjui tampant šios transporto priemonės savininku?",
+            "$ref": "#/definitions/defs"
+        },
+        "defBreaks": {
+            "title": "Ar ši transporto priemonė turi stabdžių sistemos trūkumų?",
+            "$ref": "#/definitions/defs"
+        },
+        "defWheel": {
+            "title": "Ar ši transporto priemonė turi vairo mechanizmo ir/ar pakabos elementų trūkumų?",
+            "$ref": "#/definitions/defs"
+        },
+        "defMuff": {
+            "title": "Ar ši transporto priemonė turi dujų išmetimo sistemos trūkumų?",
+            "$ref": "#/definitions/defs"
+        },
+        "defSafe": {
+            "title": "Ar ši transporto priemonė turi vairuotojų ir/ar keleivių saugos sistemų trūkumų?",
+            "$ref": "#/definitions/defs"
+        },
+        "defLight": {
+            "title": "Ar ši transporto priemonė turi apšvietimo ir/ar šviesos signalizavimo įtaisų trūkumų?",
+            "$ref": "#/definitions/defs"
+        },
+        "sum": {
+            "title": "Kaina (EUR)",
+            "type": "number"
+        }
+    },
+    "definitions": {
+        "party": {
+            "type": "array",
+            "minItems":1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "IND",
+                            "COM"
+                        ],
+                        "enumNames": [
+                            "Fizinis asmuo",
+                            "Įmonė"
+                        ]
+                    }
+                },
+                "dependencies": {
+                    "type": {
+                        "oneOf": [
+                            {
+                                "properties": {
+                                    "type": {
+                                        "enum": [
+                                            "com"
+                                        ]
+                                    },
+                                    "name": {
+                                        "title": "Pavadinimas",
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "title": "Įmonės kodas",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "title": "Adresas",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "title": "El. pašto adresas",
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "title": "Telefonas",
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "type": {
+                                        "enum": [
+                                            "ind"
+                                        ]
+                                    },
+                                    "name": {
+                                        "title": "Vardas ir pavardė",
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "title": "Gimimo data arba asmens kodas",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "title": "Adresas",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "title": "El. pašto adresas",
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "title": "Telefonas",
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "defs": {
+            "type": "string",
+            "enum": [
+                "YES",
+                "NO"
+            ],
+            "enumNames": [
+                "Taip",
+                "Ne"
+            ]
+        }
+    },
+    "dependencies": {
+        "acciOwn": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "acciOwn": {
+                            "enum": [
+                                "YES"
+                            ]
+                        },
+                        "acciOwnInfo": {
+                            "type": "string",
+                            "title": "Informacija apie šiuos įvykius"
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "acciOwn": {
+                            "enum": [
+                                "NO"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "acciNOwn": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "acciNOwn": {
+                            "enum": [
+                                "YES"
+                            ]
+                        },
+                        "acciNOwnInfo": {
+                            "type": "string",
+                            "title": "Informacija apie šiuos įvykius"
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "acciNOwn": {
+                            "enum": [
+                                "NO"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "defBreaks": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "defBreaks": {
+                            "enum": [
+                                "YES"
+                            ]
+                        },
+                        "defBreaksInfo": {
+                            "type": "string",
+                            "title": "Informacija apie šį trūkumą"
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "defBreaks": {
+                            "enum": [
+                                "NO"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "defWheel": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "defWheel": {
+                            "enum": [
+                                "YES"
+                            ]
+                        },
+                        "defWheelInfo": {
+                            "type": "string",
+                            "title": "Informacija apie šį trūkumą"
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "defWheel": {
+                            "enum": [
+                                "NO"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "defMuff": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "defMuff": {
+                            "enum": [
+                                "YES"
+                            ]
+                        },
+                        "defMuffInfo": {
+                            "type": "string",
+                            "title": "Informacija apie šį trūkumą"
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "defMuff": {
+                            "enum": [
+                                "NO"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "defSafe": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "defSafe": {
+                            "enum": [
+                                "YES"
+                            ]
+                        },
+                        "defSafeInfo": {
+                            "type": "string",
+                            "title": "Informacija apie šį trūkumą"
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "defSafe": {
+                            "enum": [
+                                "NO"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "defLight": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "defLight": {
+                            "enum": [
+                                "YES"
+                            ]
+                        },
+                        "defLightInfo": {
+                            "type": "string",
+                            "title": "Informacija apie šį trūkumą"
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "defLight": {
+                            "enum": [
+                                "NO"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

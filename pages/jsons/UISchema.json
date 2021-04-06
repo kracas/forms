@@ -1,0 +1,17 @@
+{
+  "paragraphText": {
+    "ui:widget": "textarea",
+    "ui:placeholder": "paragraph",
+    "ui:rows": 5
+  },
+  "radio": {
+    "ui:widget": "radio",
+    "ui:title": "Radio"
+  },
+  "numberSlider": {
+    "ui:widget": "range"
+  },
+  "choice": {
+    "ui:widget": "radio"
+  }
+}
