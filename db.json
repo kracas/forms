@@ -1,969 +1,507 @@
-{"services":[
-    {
-        "serviceId": "autosale",
-        "name": "Automobilio pirkimo-pardavimo sutartis",
-        "description": "Lorem ipsum dolor sit amet, stet constituam mei at, at mea virtute omnesque. Ex percipit detraxit mediocrem est. Latine officiis et sed. At eligendi petentium eum, et dico appetere sit. Eros cetero vituperata ad eam. Cum melius minimum te, vis no adhuc causae intellegam. Utinam gloriatur et vix. Eum posse delenit id, et duo oratio tantas, dicam possim impetus ex eos. Doctus suscipiantur ei has, est omnis quodsi an, sea semper scripta menandri ad.",
-        "price": 0,
-        "JSONSchema": {
-            "type": "object",
-            "properties": {
-                "contractDate": {
-                    "title": "Sutarties data",
-                    "type": "string",
-                    "format": "date"
+{
+    "services": [
+        {
+            "serviceId": "autosale",
+            "name": "Automobilio pirkimo-pardavimo sutartis",
+            "description": "Lorem ipsum dolor sit amet, stet constituam mei at, at mea virtute omnesque. Ex percipit detraxit mediocrem est. Latine officiis et sed. At eligendi petentium eum, et dico appetere sit. Eros cetero vituperata ad eam. Cum melius minimum te, vis no adhuc causae intellegam. Utinam gloriatur et vix. Eum posse delenit id, et duo oratio tantas, dicam possim impetus ex eos. Doctus suscipiantur ei has, est omnis quodsi an, sea semper scripta menandri ad.",
+            "price": 0,
+            "JSONSchema": {
+                "type": "object",
+                "properties": {
+                    "contractDate": {
+                        "title": "Sutarties data",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "place": {
+                        "title": "Sutarties sudarymo vieta",
+                        "type": "string"
+                    },
+                    "flows_sellerParty": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "flows_buyerParty": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "flows_sellerEmail": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "flows_buyerEmail": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "seller": {
+                        "title": "Pardavėjo rekvizitai",
+                        "$ref": "#/definitions/party"
+                    },
+                    "buyer": {
+                        "title": "Pirkėjo rekvizitai",
+                        "$ref": "#/definitions/party"
+                    },
+                    "make": {
+                        "title": "Markė",
+                        "type": "string"
+                    },
+                    "model": {
+                        "title": "Modelis",
+                        "type": "string"
+                    },
+                    "plate": {
+                        "type": "string",
+                        "title": "Valstybinis numeris"
+                    },
+                    "vin": {
+                        "title": "Indentifikavimo numeris (VIN)",
+                        "type": "string"
+                    },
+                    "milage": {
+                        "title": "Kilometražas (km)",
+                        "type": "number"
+                    },
+                    "cert": {
+                        "type": "string",
+                        "title": "Registracijos liudijimo serija ir numeris"
+                    },
+                    "inspection": {
+                        "type": "string",
+                        "title": "Techninė apžiūra",
+                        "enum": [
+                            "VALID",
+                            "INVALID"
+                        ],
+                        "enumNames": [
+                            "Galioja",
+                            "Negalioja"
+                        ]
+                    },
+                    "acciOwn": {
+                        "title": "Ar per laikotarpį, kuomet pardavėjas buvo transporto priemonės savininkas, buvo eismo ar kitų įvykių, kurių metu buvo apgadinta ši transporto priemonė?",
+                        "$ref": "#/definitions/defs"
+                    },
+                    "acciNOwn": {
+                        "title": "Ar yra žinomi kiti įvykiai, kurių metu buvo apgadinta ši transporto priemonė, per laikotarpį iki pardavėjui tampant šios transporto priemonės savininku?",
+                        "$ref": "#/definitions/defs"
+                    },
+                    "defBreaks": {
+                        "title": "Ar ši transporto priemonė turi stabdžių sistemos trūkumų?",
+                        "$ref": "#/definitions/defs"
+                    },
+                    "defWheel": {
+                        "title": "Ar ši transporto priemonė turi vairo mechanizmo ir/ar pakabos elementų trūkumų?",
+                        "$ref": "#/definitions/defs"
+                    },
+                    "defMuff": {
+                        "title": "Ar ši transporto priemonė turi dujų išmetimo sistemos trūkumų?",
+                        "$ref": "#/definitions/defs"
+                    },
+                    "defSafe": {
+                        "title": "Ar ši transporto priemonė turi vairuotojų ir/ar keleivių saugos sistemų trūkumų?",
+                        "$ref": "#/definitions/defs"
+                    },
+                    "defLight": {
+                        "title": "Ar ši transporto priemonė turi apšvietimo ir/ar šviesos signalizavimo įtaisų trūkumų?",
+                        "$ref": "#/definitions/defs"
+                    },
+                    "sum": {
+                        "title": "Kaina (EUR)",
+                        "type": "number"
+                    }
                 },
-                "place": {
-                    "title": "Sutarties sudarymo vieta",
-                    "type": "string"
+                "definitions": {
+                    "party": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": [
+                                        "IND",
+                                        "COM"
+                                    ],
+                                    "enumNames": [
+                                        "Fizinis asmuo",
+                                        "Įmonė"
+                                    ]
+                                }
+                            },
+                            "dependencies": {
+                                "type": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "type": {
+                                                    "enum": [
+                                                        "COM"
+                                                    ]
+                                                },
+                                                "code": {
+                                                    "title": "Įmonės kodas",
+                                                    "type": "string"
+                                                },
+                                                "name": {
+                                                    "title": "Pavadinimas",
+                                                    "type": "string"
+                                                },
+                                                "address": {
+                                                    "title": "Adresas",
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "title": "El. pašto adresas",
+                                                    "type": "string"
+                                                },
+                                                "phone": {
+                                                    "title": "Telefonas",
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "properties": {
+                                                "type": {
+                                                    "enum": [
+                                                        "IND"
+                                                    ]
+                                                },
+                                                "name": {
+                                                    "title": "Vardas ir pavardė",
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "title": "Gimimo data arba asmens kodas",
+                                                    "type": "string"
+                                                },
+                                                "address": {
+                                                    "title": "Adresas",
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "title": "El. pašto adresas",
+                                                    "type": "string"
+                                                },
+                                                "phone": {
+                                                    "title": "Telefonas",
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "defs": {
+                        "type": "string",
+                        "enum": [
+                            "YES",
+                            "NO"
+                        ],
+                        "enumNames": [
+                            "Taip",
+                            "Ne"
+                        ]
+                    }
                 },
+                "dependencies": {
+                    "acciOwn": {
+                        "oneOf": [
+                            {
+                                "properties": {
+                                    "acciOwn": {
+                                        "enum": [
+                                            "YES"
+                                        ]
+                                    },
+                                    "acciOwnInfo": {
+                                        "type": "string",
+                                        "title": "Informacija apie šiuos įvykius"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "acciOwn": {
+                                        "enum": [
+                                            "NO"
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "acciNOwn": {
+                        "oneOf": [
+                            {
+                                "properties": {
+                                    "acciNOwn": {
+                                        "enum": [
+                                            "YES"
+                                        ]
+                                    },
+                                    "acciNOwnInfo": {
+                                        "type": "string",
+                                        "title": "Informacija apie šiuos įvykius"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "acciNOwn": {
+                                        "enum": [
+                                            "NO"
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "defBreaks": {
+                        "oneOf": [
+                            {
+                                "properties": {
+                                    "defBreaks": {
+                                        "enum": [
+                                            "YES"
+                                        ]
+                                    },
+                                    "defBreaksInfo": {
+                                        "type": "string",
+                                        "title": "Informacija apie šį trūkumą"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "defBreaks": {
+                                        "enum": [
+                                            "NO"
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "defWheel": {
+                        "oneOf": [
+                            {
+                                "properties": {
+                                    "defWheel": {
+                                        "enum": [
+                                            "YES"
+                                        ]
+                                    },
+                                    "defWheelInfo": {
+                                        "type": "string",
+                                        "title": "Informacija apie šį trūkumą"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "defWheel": {
+                                        "enum": [
+                                            "NO"
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "defMuff": {
+                        "oneOf": [
+                            {
+                                "properties": {
+                                    "defMuff": {
+                                        "enum": [
+                                            "YES"
+                                        ]
+                                    },
+                                    "defMuffInfo": {
+                                        "type": "string",
+                                        "title": "Informacija apie šį trūkumą"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "defMuff": {
+                                        "enum": [
+                                            "NO"
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "defSafe": {
+                        "oneOf": [
+                            {
+                                "properties": {
+                                    "defSafe": {
+                                        "enum": [
+                                            "YES"
+                                        ]
+                                    },
+                                    "defSafeInfo": {
+                                        "type": "string",
+                                        "title": "Informacija apie šį trūkumą"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "defSafe": {
+                                        "enum": [
+                                            "NO"
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "defLight": {
+                        "oneOf": [
+                            {
+                                "properties": {
+                                    "defLight": {
+                                        "enum": [
+                                            "YES"
+                                        ]
+                                    },
+                                    "defLightInfo": {
+                                        "type": "string",
+                                        "title": "Informacija apie šį trūkumą"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "defLight": {
+                                        "enum": [
+                                            "NO"
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "UISchema": {
+                "ui:order": [
+                    "contractDate",
+                    "place",
+                    "seller",
+                    "buyer",
+                    "make",
+                    "model",
+                    "plate",
+                    "vin",
+                    "milage",
+                    "cert",
+                    "inspection",
+                    "acciOwn",
+                    "acciOwnInfo",
+                    "acciNOwn",
+                    "acciNOwnInfo",
+                    "defBreaks",
+                    "defBreaksInfo",
+                    "defWheel",
+                    "defWheelInfo",
+                    "defMuff",
+                    "defMuffInfo",
+                    "defSafe",
+                    "defSafeInfo",
+                    "defLight",
+                    "defLightInfo",
+                    "*"
+                ],
                 "flows_sellerParty": {
-                    "type": "string",
-                    "default": ""
+                    "ui:widget": "hidden"
                 },
                 "flows_buyerParty": {
-                    "type": "string",
-                    "default": ""
+                    "ui:widget": "hidden"
                 },
                 "flows_sellerEmail": {
-                    "type": "string",
-                    "default": ""
+                    "ui:widget": "hidden"
                 },
                 "flows_buyerEmail": {
-                    "type": "string",
-                    "default": ""
+                    "ui:widget": "hidden"
                 },
                 "seller": {
-                    "title": "Pardavėjo rekvizitai",
-                    "$ref": "#/definitions/party"
+                    "ui:options": {
+                        "removable": false,
+                        "orderable": false,
+                        "addable": false
+                    },
+                    "items": {
+                        "type": {
+                            "ui:widget": "radio",
+                            "ui:inline": true,
+                            "ui:label": false
+                        }
+                    }
                 },
                 "buyer": {
-                    "title": "Pirkėjo rekvizitai",
-                    "$ref": "#/definitions/party"
-                },
-                "make": {
-                    "title": "Markė",
-                    "type": "string"
-                },
-                "model": {
-                    "title": "Modelis",
-                    "type": "string"
-                },
-                "plate": {
-                    "type": "string",
-                    "title": "Valstybinis numeris"
-                },
-                "vin": {
-                    "title": "Indentifikavimo numeris (VIN)",
-                    "type": "string"
-                },
-                "milage": {
-                    "title": "Kilometražas (km)",
-                    "type": "number"
-                },
-                "cert": {
-                    "type": "string",
-                    "title": "Registracijos liudijimo serija ir numeris"
+                    "ui:options": {
+                        "removable": false,
+                        "orderable": false,
+                        "addable": false
+                    },
+                    "items": {
+                        "type": {
+                            "ui:widget": "radio",
+                            "ui:inline": true,
+                            "ui:label": false
+                        }
+                    }
                 },
                 "inspection": {
-                    "type": "string",
-                    "title": "Techninė apžiūra",
-                    "enum": [
-                        "VALID",
-                        "INVALID"
-                    ],
-                    "enumNames": [
-                        "Galioja",
-                        "Negalioja"
-                    ]
+                    "ui:widget": "radio",
+                    "ui:inline": true
                 },
                 "acciOwn": {
-                    "title": "Ar per laikotarpį, kuomet pardavėjas buvo transporto priemonės savininkas, buvo eismo ar kitų įvykių, kurių metu buvo apgadinta ši transporto priemonė?",
-                    "$ref": "#/definitions/defs"
+                    "ui:widget": "radio",
+                    "ui:inline": true
+                },
+                "acciOwnInfo": {
+                    "ui:widget": "textarea",
+                    "ui:rows": 3
                 },
                 "acciNOwn": {
-                    "title": "Ar yra žinomi kiti įvykiai, kurių metu buvo apgadinta ši transporto priemonė, per laikotarpį iki pardavėjui tampant šios transporto priemonės savininku?",
-                    "$ref": "#/definitions/defs"
+                    "ui:widget": "radio",
+                    "ui:inline": true
+                },
+                "acciNOwnInfo": {
+                    "ui:widget": "textarea",
+                    "ui:rows": 3
                 },
                 "defBreaks": {
-                    "title": "Ar ši transporto priemonė turi stabdžių sistemos trūkumų?",
-                    "$ref": "#/definitions/defs"
+                    "ui:widget": "radio",
+                    "ui:inline": true
                 },
                 "defWheel": {
-                    "title": "Ar ši transporto priemonė turi vairo mechanizmo ir/ar pakabos elementų trūkumų?",
-                    "$ref": "#/definitions/defs"
+                    "ui:widget": "radio",
+                    "ui:inline": true
                 },
                 "defMuff": {
-                    "title": "Ar ši transporto priemonė turi dujų išmetimo sistemos trūkumų?",
-                    "$ref": "#/definitions/defs"
+                    "ui:widget": "radio",
+                    "ui:inline": true
                 },
                 "defSafe": {
-                    "title": "Ar ši transporto priemonė turi vairuotojų ir/ar keleivių saugos sistemų trūkumų?",
-                    "$ref": "#/definitions/defs"
+                    "ui:widget": "radio",
+                    "ui:inline": true
                 },
                 "defLight": {
-                    "title": "Ar ši transporto priemonė turi apšvietimo ir/ar šviesos signalizavimo įtaisų trūkumų?",
-                    "$ref": "#/definitions/defs"
-                },
-                "sum": {
-                    "title": "Kaina (EUR)",
-                    "type": "number"
+                    "ui:widget": "radio",
+                    "ui:inline": true
                 }
-            },
-            "definitions": {
-                "party": {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "type": {
-                                "type": "string",
-                                "enum": [
-                                    "IND",
-                                    "COM"
-                                ],
-                                "enumNames": [
-                                    "Fizinis asmuo",
-                                    "Įmonė"
-                                ]
-                            }
-                        },
-                        "dependencies": {
-                            "type": {
-                                "oneOf": [
-                                    {
-                                        "properties": {
-                                            "type": {
-                                                "enum": [
-                                                    "COM"
-                                                ]
-                                            },
-                                            "code": {
-                                                "title": "Įmonės kodas",
-                                                "type": "string"
-                                            },
-                                            "name": {
-                                                "title": "Pavadinimas",
-                                                "type": "string"
-                                            },
-                                            "address": {
-                                                "title": "Adresas",
-                                                "type": "string"
-                                            },
-                                            "email": {
-                                                "title": "El. pašto adresas",
-                                                "type": "string"
-                                            },
-                                            "phone": {
-                                                "title": "Telefonas",
-                                                "type": "string"
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "properties": {
-                                            "type": {
-                                                "enum": [
-                                                    "IND"
-                                                ]
-                                            },
-                                            "name": {
-                                                "title": "Vardas ir pavardė",
-                                                "type": "string"
-                                            },
-                                            "code": {
-                                                "title": "Gimimo data arba asmens kodas",
-                                                "type": "string"
-                                            },
-                                            "address": {
-                                                "title": "Adresas",
-                                                "type": "string"
-                                            },
-                                            "email": {
-                                                "title": "El. pašto adresas",
-                                                "type": "string"
-                                            },
-                                            "phone": {
-                                                "title": "Telefonas",
-                                                "type": "string"
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                },
-                "defs": {
-                    "type": "string",
-                    "enum": [
-                        "YES",
-                        "NO"
-                    ],
-                    "enumNames": [
-                        "Taip",
-                        "Ne"
-                    ]
-                }
-            },
-            "dependencies": {
-                "acciOwn": {
-                    "oneOf": [
-                        {
-                            "properties": {
-                                "acciOwn": {
-                                    "enum": [
-                                        "YES"
-                                    ]
-                                },
-                                "acciOwnInfo": {
-                                    "type": "string",
-                                    "title": "Informacija apie šiuos įvykius"
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "acciOwn": {
-                                    "enum": [
-                                        "NO"
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                },
-                "acciNOwn": {
-                    "oneOf": [
-                        {
-                            "properties": {
-                                "acciNOwn": {
-                                    "enum": [
-                                        "YES"
-                                    ]
-                                },
-                                "acciNOwnInfo": {
-                                    "type": "string",
-                                    "title": "Informacija apie šiuos įvykius"
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "acciNOwn": {
-                                    "enum": [
-                                        "NO"
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                },
-                "defBreaks": {
-                    "oneOf": [
-                        {
-                            "properties": {
-                                "defBreaks": {
-                                    "enum": [
-                                        "YES"
-                                    ]
-                                },
-                                "defBreaksInfo": {
-                                    "type": "string",
-                                    "title": "Informacija apie šį trūkumą"
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "defBreaks": {
-                                    "enum": [
-                                        "NO"
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                },
-                "defWheel": {
-                    "oneOf": [
-                        {
-                            "properties": {
-                                "defWheel": {
-                                    "enum": [
-                                        "YES"
-                                    ]
-                                },
-                                "defWheelInfo": {
-                                    "type": "string",
-                                    "title": "Informacija apie šį trūkumą"
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "defWheel": {
-                                    "enum": [
-                                        "NO"
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                },
-                "defMuff": {
-                    "oneOf": [
-                        {
-                            "properties": {
-                                "defMuff": {
-                                    "enum": [
-                                        "YES"
-                                    ]
-                                },
-                                "defMuffInfo": {
-                                    "type": "string",
-                                    "title": "Informacija apie šį trūkumą"
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "defMuff": {
-                                    "enum": [
-                                        "NO"
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                },
-                "defSafe": {
-                    "oneOf": [
-                        {
-                            "properties": {
-                                "defSafe": {
-                                    "enum": [
-                                        "YES"
-                                    ]
-                                },
-                                "defSafeInfo": {
-                                    "type": "string",
-                                    "title": "Informacija apie šį trūkumą"
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "defSafe": {
-                                    "enum": [
-                                        "NO"
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                },
-                "defLight": {
-                    "oneOf": [
-                        {
-                            "properties": {
-                                "defLight": {
-                                    "enum": [
-                                        "YES"
-                                    ]
-                                },
-                                "defLightInfo": {
-                                    "type": "string",
-                                    "title": "Informacija apie šį trūkumą"
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "defLight": {
-                                    "enum": [
-                                        "NO"
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        "UISchema": {
-            "ui:order": [
-                "contractDate",
-                "place",
-                "seller",
-                "buyer",
-                "make",
-                "model",
-                "plate",
-                "vin",
-                "milage",
-                "cert",
-                "inspection",
-                "acciOwn",
-                "acciOwnInfo",
-                "acciNOwn",
-                "acciNOwnInfo",
-                "defBreaks",
-                "defBreaksInfo",
-                "defWheel",
-                "defWheelInfo",
-                "defMuff",
-                "defMuffInfo",
-                "defSafe",
-                "defSafeInfo",
-                "defLight",
-                "defLightInfo",
-                "*"
-            ],
-            "flows_sellerParty": {
-                "ui:widget": "hidden"
-            },
-            "flows_buyerParty": {
-                "ui:widget": "hidden"
-            },
-            "flows_sellerEmail": {
-                "ui:widget": "hidden"
-            },
-            "flows_buyerEmail": {
-                "ui:widget": "hidden"
-            },
-            "seller": {
-                "ui:options": {
-                    "removable": false,
-                    "orderable": false,
-                    "addable": false
-                },
-                "items": {
-                    "type": {
-                        "ui:widget": "radio",
-                        "ui:inline": true,
-                        "ui:label": false
-                    }
-                }
-            },
-            "buyer": {
-                "ui:options": {
-                    "removable": false,
-                    "orderable": false,
-                    "addable": false
-                },
-                "items": {
-                    "type": {
-                        "ui:widget": "radio",
-                        "ui:inline": true,
-                        "ui:label": false
-                    }
-                }
-            },
-            "inspection": {
-                "ui:widget": "radio",
-                "ui:inline": true
-            },
-            "acciOwn": {
-                "ui:widget": "radio",
-                "ui:inline": true
-            },
-            "acciOwnInfo": {
-                "ui:widget": "textarea",
-                "ui:rows": 3
-            },
-            "acciNOwn": {
-                "ui:widget": "radio",
-                "ui:inline": true
-            },
-            "acciNOwnInfo": {
-                "ui:widget": "textarea",
-                "ui:rows": 3
-            },
-            "defBreaks": {
-                "ui:widget": "radio",
-                "ui:inline": true
-            },
-            "defWheel": {
-                "ui:widget": "radio",
-                "ui:inline": true
-            },
-            "defMuff": {
-                "ui:widget": "radio",
-                "ui:inline": true
-            },
-            "defSafe": {
-                "ui:widget": "radio",
-                "ui:inline": true
-            },
-            "defLight": {
-                "ui:widget": "radio",
-                "ui:inline": true
             }
         }
-    },
-    {
-        "serviceId": "employment",
-        "name": "Darbo sutartis",
-        "description": "Lorem ipsum dolor sit amet, stet constituam mei at, at mea virtute omnesque. Ex percipit detraxit mediocrem est. Latine officiis et sed. At eligendi petentium eum, et dico appetere sit. Eros cetero vituperata ad eam. Cum melius minimum te, vis no adhuc causae intellegam. Utinam gloriatur et vix. Eum posse delenit id, et duo oratio tantas, dicam possim impetus ex eos. Doctus suscipiantur ei has, est omnis quodsi an, sea semper scripta menandri ad.",
-        "price": 0,
-        "JSONSchema": {
-            "type": "object",
-            "properties": {
-                "contractDate": {
-                    "title": "Sutarties data",
-                    "type": "string",
-                    "format": "date"
-                },
-                "contractNo": {
-                    "title": "Sutarties numeris",
-                    "type": "string"
-                },
-                "place": {
-                    "title": "Sutarties sudarymo vieta",
-                    "type": "string"
-                },
-                "flows_employerParty": {
-                    "type": "string",
-                    "default": ""
-                },
-                "flows_employeeParty": {
-                    "type": "string",
-                    "default": ""
-                },
-                "flows_employerEmail": {
-                    "type": "string",
-                    "default": ""
-                },
-                "flows_employeeEmail": {
-                    "type": "string",
-                    "default": ""
-                },
-                "employer": {
-                    "title": "Darbdavys",
-                    "$ref": "#/definitions/party"
-                },
-                "employee": {
-                    "title": "Darbuotojas",
-                    "type": "array",
-                    "minItems": 1,
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "title": "Vardas ir pavardė",
-                                "type": "string"
-                            },
-                            "code": {
-                                "title": "Gimimo data arba asmens kodas",
-                                "type": "string"
-                            },
-                            "address": {
-                                "title": "Adresas",
-                                "type": "string"
-                            },
-                            "email": {
-                                "title": "El. pašto adresas",
-                                "type": "string"
-                            },
-                            "phone": {
-                                "title": "Telefonas",
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "workplace": {
-                    "title": "Darbovietės pavadinimas",
-                    "type": "string"
-                },
-                "workAddress": {
-                    "title": "Darbovietės adresas",
-                    "type": "string"
-                },
-                "position": {
-                    "title": "Pareigų pavadinimas",
-                    "type": "string"
-                },
-                "salaryType": {
-                    "type": "string",
-                    "title": "Atlyginimo tipas",
-                    "enum": [
-                        "MONTH",
-                        "HOUR"
-                    ],
-                    "enumNames": [
-                        "Mėnesinis",
-                        "Valandinis"
-                    ]
-                },
-                "term": {
-                    "type": "string",
-                    "title": "Sutartis bus:",
-                    "enum": [
-                        "FIXED",
-                        "INDEFINITE"
-                    ],
-                    "enumNames": [
-                        "Terminuota",
-                        "Neterminuota"
-                    ]
-                },
-                "hours": {
-                    "type": "string",
-                    "title": "Darbuotojas dirbs"
-                },
-                "hoursType": {
-                    "type": "string",
-                    "enum": [
-                        "DAY",
-                        "WEEK"
-                    ],
-                    "enumNames": [
-                        "Valandų per dieną",
-                        "Valandų per savaitę"
-                    ]
-                },
-                "trial": {
-                    "type": "string",
-                    "title": "Ar bus taikomas išbandymas?",
-                    "enum": [
-                        "WEEK",
-                        "MONTH",
-                        "N/A"
-                    ],
-                    "enumNames": [
-                        "Taip, jo terminą skaičiuojant savaitėmis",
-                        "Taip, jo terminą skaičiuojant mėnesiais",
-                        "Netaikomas"
-                    ]
-                }, "workStart": {
-                    "title": "Darbo pradžios data",
-                    "type": "string",
-                    "format": "date"
-                }
-            },
-            "definitions": {
-                "party": {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "type": {
-                                "type": "string",
-                                "enum": [
-                                    "IND",
-                                    "COM"
-                                ],
-                                "enumNames": [
-                                    "Fizinis asmuo",
-                                    "Įmonė"
-                                ]
-                            }
-                        },
-                        "dependencies": {
-                            "type": {
-                                "oneOf": [
-                                    {
-                                        "properties": {
-                                            "type": {
-                                                "enum": [
-                                                    "COM"
-                                                ]
-                                            },
-                                            "code": {
-                                                "title": "Įmonės kodas",
-                                                "type": "string"
-                                            },
-                                            "name": {
-                                                "title": "Pavadinimas",
-                                                "type": "string"
-                                            },
-                                            "address": {
-                                                "title": "Adresas",
-                                                "type": "string"
-                                            },
-                                            "email": {
-                                                "title": "El. pašto adresas",
-                                                "type": "string"
-                                            },
-                                            "phone": {
-                                                "title": "Telefonas",
-                                                "type": "string"
-                                            },
-                                            "repType": {
-                                                "title": "Kas pasirašys už įmonę?",
-                                                "type": "string",
-                                                "enum": [
-                                                    "DIR",
-                                                    "NOTDIR"
-                                                ],
-                                                "enumNames": [
-                                                    "Direktorius",
-                                                    "Kitas asmuo"
-                                                ]
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "properties": {
-                                            "type": {
-                                                "enum": [
-                                                    "IND"
-                                                ]
-                                            },
-                                            "name": {
-                                                "title": "Vardas ir pavardė",
-                                                "type": "string"
-                                            },
-                                            "code": {
-                                                "title": "Gimimo data arba asmens kodas",
-                                                "type": "string"
-                                            },
-                                            "address": {
-                                                "title": "Adresas",
-                                                "type": "string"
-                                            },
-                                            "email": {
-                                                "title": "El. pašto adresas",
-                                                "type": "string"
-                                            },
-                                            "phone": {
-                                                "title": "Telefonas",
-                                                "type": "string"
-                                            }
-                                        }
-                                    }
-                                ]
-                            },
-                            "repType": {
-                                "oneOf": [
-                                    {
-                                        "properties": {
-                                            "repType": {
-                                                "enum": [
-                                                    "DIR"
-                                                ]
-                                            },
-                                            "repName": {
-                                                "title": "Direktoriaus vardas ir pavardė",
-                                                "type": "string"
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "properties": {
-                                            "repType": {
-                                                "enum": [
-                                                    "NOTDIR"
-                                                ]
-                                            },
-                                            "repName": {
-                                                "title": "Atstovo vardas ir pavardė",
-                                                "type": "string"
-                                            },
-                                            "repDoc": {
-                                                "title": "Kokio dokumento pagrindu atstovas pasirašys sutartį?",
-                                                "type": "string"
-                                            },
-                                            "repDocDate": {
-                                                "title": "Šio dokumento data",
-                                                "type": "string",
-                                                "format": "date"
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                },
-                "defs": {
-                    "type": "string",
-                    "enum": [
-                        "YES",
-                        "NO"
-                    ],
-                    "enumNames": [
-                        "Taip",
-                        "Ne"
-                    ]
-                }
-            },
-            "dependencies": {
-                "salaryType": {
-                    "oneOf": [
-                        {
-                            "properties": {
-                                "salaryType": {
-                                    "enum": [
-                                        "MONTH"
-                                    ]
-                                },
-                                "salary": {
-                                    "type": "number",
-                                    "title": "Atlyginimo dydis per mėnesį eurais"
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "salaryType": {
-                                    "enum": [
-                                        "HOUR"
-                                    ]
-                                },
-                                "salary": {
-                                    "type": "number",
-                                    "title": "Atlyginimo dydis per valandą eurais"
-                                }
-                            }
-                        }
-                    ]
-                },
-                "trial": {
-                    "oneOf": [
-                        {
-                            "properties": {
-                                "trial": {
-                                    "enum": [
-                                        "MONTH"
-                                    ]
-                                },
-                                "trialPeriod": {
-                                    "type": "number",
-                                    "title": "Nurodykite išbandymo terminą mėnesiais"
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "trial": {
-                                    "enum": [
-                                        "WEEK"
-                                    ]
-                                },
-                                "trialPeriod": {
-                                    "type": "number",
-                                    "title": "Nurodykite išbandymo terminą savaitėmis"
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "trial": {
-                                    "enum": [
-                                        "N/A"
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                },
-                "term": {
-                    "oneOf": [
-                        {
-                            "properties": {
-                                "term": {
-                                    "enum": [
-                                        "FIXED"
-                                    ]
-                                },
-                                "fixed": {
-                                    "type": "string",
-                                    "title": "Paskutinė darbuotojo darbo diena",
-                                    "format": "date"
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "salaryType": {
-                                    "enum": [
-                                        "INDEFINITE"
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        "UISchema": {
-            "ui:order": [
-                "contractDate",
-                "contractNo",
-                "place",
-                "employer",
-                "employee",
-                "workplace",
-                "workAddress",
-                "position",
-                "salaryType",
-                "salary",
-                "term",
-                "fixed",
-                "hours",
-                "hoursType",
-                "trial",
-                "trialPeriod",
-                "workStart",
-                "*"
-            ],
-            "flows_employerParty": {
-                "ui:widget": "hidden"
-            },
-            "flows_employeeParty": {
-                "ui:widget": "hidden"
-            },
-            "flows_employerEmail": {
-                "ui:widget": "hidden"
-            },
-            "flows_employeeEmail": {
-                "ui:widget": "hidden"
-            },
-            "employer": {
-                "ui:options": {
-                    "removable": false,
-                    "orderable": false,
-                    "addable": false
-                },
-                "items": {
-                    "type": {
-                        "ui:widget": "radio",
-                        "ui:inline": true,
-                        "ui:label": false
-                    },
-                    "repType": {
-                        "ui:widget": "radio",
-                        "ui:inline": true
-                    }
-                }
-            },
-            "employee": {
-                "ui:options": {
-                    "removable": false,
-                    "orderable": false,
-                    "addable": false
-                }
-            },
-            "salaryType": {
-                "ui:widget": "radio",
-                "ui:inline": true
-            },
-            "hoursType": {
-                "ui:widget": "radio",
-                "ui:inline": true,
-                "ui:label": false
-            },
-            "term": {
-                "ui:widget": "radio",
-                "ui:inline": true
-            },
-            "trial": {
-                "ui:widget": "radio"
-            }
-        }
-    }
-]}
+    ]
+}
